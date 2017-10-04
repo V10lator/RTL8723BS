@@ -2027,8 +2027,8 @@ void rtw_cfg80211_indicate_scan_done(_adapter *adapter, bool aborted)
 		else
 		{
 			struct cfg80211_scan_info info = {
-			.aborted = true,
-		};
+				.aborted = aborted,
+			};
 			cfg80211_scan_done(pwdev_priv->scan_request, &info);
 		}
 
