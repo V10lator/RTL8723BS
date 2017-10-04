@@ -2026,7 +2026,10 @@ void rtw_cfg80211_indicate_scan_done(_adapter *adapter, bool aborted)
 		}
 		else
 		{
-			cfg80211_scan_done(pwdev_priv->scan_request, aborted);
+			struct cfg80211_scan_info info = {
+			.aborted = true,
+		};
+			cfg80211_scan_done(pwdev_priv->scan_request, &info);
 		}
 
 		pwdev_priv->scan_request = NULL;
@@ -4410,7 +4413,8 @@ static int	cfg80211_rtw_change_station(struct wiphy *wiphy, struct net_device *n
 
 struct sta_info *rtw_sta_info_get_by_idx(const int idx, struct sta_priv *pstapriv)
 
-{
+{
+
 	_list	*phead, *plist;
 	struct sta_info *psta = NULL;
 	int i = 0;
